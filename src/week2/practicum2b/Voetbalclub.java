@@ -8,7 +8,16 @@ public class Voetbalclub {
     private String voetbalClub;
 
     public Voetbalclub(String vc){
-        voetbalClub = vc;
+        if(vc == null || vc.trim().isEmpty()){
+            voetbalClub = "FC";
+        } else{
+            voetbalClub = vc;
+        }
+
+    }
+
+    public String getVoetbalClub(){
+        return voetbalClub;
     }
 
     public void verwerkResultaat(char ch) {

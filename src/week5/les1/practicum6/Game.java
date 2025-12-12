@@ -1,4 +1,4 @@
-package week5.les1.practicum6a;
+package week5.les1.practicum6;
 
 import java.time.LocalDate;
 
@@ -47,7 +47,7 @@ public class Game {
     }
 
     public String toString(){
-        return String.format("%s, uitgegeven in %d; nieuwprijs: \u20AC %.2f nu voor \u20AC %.2f", naam, releaseJaar, nieuwprijs, huidigeWaarde());
+        return String.format("%s, uitgegeven in %d; nieuwprijs: \u20AC%.2f nu voor: \u20AC%.2f", naam, releaseJaar, nieuwprijs, huidigeWaarde());
     }
 
 }

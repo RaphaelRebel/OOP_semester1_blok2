@@ -7,14 +7,19 @@ public class Auto {
 
     public Auto(String tp, double prPd) throws IllegalArgumentException{
         if(prPd < 0){
-            throw new IllegalArgumentException("Prijs per dag mag niet negatief zijn");
+            prPd = 0;
         }
         type = tp;
         prijsPerDag = prPd;
     }
 
     public void setPrijsPerDag(double prPd) {
-        prijsPerDag = prPd;
+        if(prPd < 0){
+            prijsPerDag = 0;
+        } else{
+            prijsPerDag = prPd;
+        }
+
     }
 
     public double getPrijsPerDag() {

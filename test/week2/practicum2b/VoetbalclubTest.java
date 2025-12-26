@@ -12,18 +12,29 @@ class VoetbalclubTest {
     @BeforeEach
     public void init(){
         System.out.println("VoetbalclubTest init");
-	    voetbalclub = new Voetbalclub("");
+        voetbalclub = new Voetbalclub("");
     }
 
 
     @Test
-    void test_isClubNaamLeeg_geefFC(){
+    void test_isClubnaamLeeg_geefFC(){
         System.out.println("test_isClubNaamLeeg_geefFC");
 
         assertEquals("FC",  voetbalclub.getVoetbalClub());
+    }
 
-        voetbalclub = new Voetbalclub(null);
-        assertEquals("FC",  voetbalclub.getVoetbalClub());
+    @Test
+    void test_isClubnaamNull_geefFC(){
+        System.out.println("test_isClubNaamNull_geefFC");
+        Voetbalclub nullVoetbalclub = new Voetbalclub(null);
+        assertEquals("FC",  nullVoetbalclub.getVoetbalClub());
+    }
+
+    @Test
+    void test_heeftClubnaam_geefClubnaam(){
+        System.out.println("test_heeftClubnaam_geefClubnaam");
+        Voetbalclub MetNaamVoetbalclub = new Voetbalclub("Ajax");
+        assertEquals("Ajax",  MetNaamVoetbalclub.getVoetbalClub());
     }
 
 	@Test
@@ -34,19 +45,10 @@ class VoetbalclubTest {
 		voetbalclub.verwerkResultaat('w');
 
         assertEquals(puntenVoorVerwerking + 3, voetbalclub.aantalPunten());
-
+        assertEquals(1, voetbalclub.aantalGespeeld());
 	}
 
-    @Test
-    void test_resultaatToontPunten_verlies(){
-        System.out.println("test_resultaatToontPunten_verlies");
-        int puntenVoorVerwerking = voetbalclub.aantalPunten();
-        System.out.println("puntenVoorVerwerking = " + puntenVoorVerwerking);
-        voetbalclub.verwerkResultaat('v');
 
-        assertEquals(puntenVoorVerwerking, voetbalclub.aantalPunten());
-
-    }
 
     @Test
     void test_resultaatToontPunten_gelijk(){
@@ -56,6 +58,19 @@ class VoetbalclubTest {
         voetbalclub.verwerkResultaat('g');
 
         assertEquals(puntenVoorVerwerking + 1, voetbalclub.aantalPunten());
+        assertEquals(1, voetbalclub.aantalGespeeld());
+
+    }
+
+    @Test
+    void test_resultaatToontPunten_verlies(){
+        System.out.println("test_resultaatToontPunten_verlies");
+        int puntenVoorVerwerking = voetbalclub.aantalPunten();
+        System.out.println("puntenVoorVerwerking = " + puntenVoorVerwerking);
+        voetbalclub.verwerkResultaat('v');
+
+        assertEquals(puntenVoorVerwerking, voetbalclub.aantalPunten());
+        assertEquals(1, voetbalclub.aantalGespeeld());
 
     }
 
@@ -65,20 +80,19 @@ class VoetbalclubTest {
         int puntenVoorVerwerking = voetbalclub.aantalPunten();
         int gespeeldVoorVerwerking = voetbalclub.aantalGespeeld();
         System.out.println("puntenVoorVerwerking = " + puntenVoorVerwerking);
-        voetbalclub.verwerkResultaat('a');
-        voetbalclub.verwerkResultaat('x');
-        voetbalclub.verwerkResultaat('P');
+        voetbalclub.verwerkResultaat('w');
+        voetbalclub.verwerkResultaat('X');
 
-        assertEquals(puntenVoorVerwerking, voetbalclub.aantalPunten());
-        assertEquals(gespeeldVoorVerwerking, voetbalclub.aantalGespeeld());
+        assertTrue(puntenVoorVerwerking + 3 == voetbalclub.aantalPunten());
+        assertTrue(gespeeldVoorVerwerking + 1 == voetbalclub.aantalGespeeld());
     }
 
     @Test
     void test_resultaatToontPunten_inToString(){
         System.out.println("test_resultaatToontPunten_inToString");
+        voetbalclub.verwerkResultaat('w');
         voetbalclub.verwerkResultaat('g');
         voetbalclub.verwerkResultaat('v');
-        voetbalclub.verwerkResultaat('w');
 
         String expectedToString = "FC 3 1 1 1 4";
 
@@ -96,7 +110,7 @@ class VoetbalclubTest {
         voetbalclub.verwerkResultaat('w');
         voetbalclub.verwerkResultaat('v');
 
-        int verwachtePunten = 6 + 3;
+        int verwachtePunten = 6 + 3; //2 gewonnen (6 punten) en 3 gelijk gespeeld (3 punten)
         int verwachteWedstrijdAantal = 7;
 
         assertEquals(verwachtePunten, voetbalclub.aantalPunten());

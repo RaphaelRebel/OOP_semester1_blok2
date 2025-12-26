@@ -6,20 +6,22 @@ public class Klant {
     private double kortingsPercentage = 0.0;
 
     public Klant(String nm){
-        naam = nm;
+        if(nm == null || nm.isEmpty()){
+            naam = "Huurder";
+        } else {
+            naam = nm;
+        }
+
     }
 
-    public void setKorting(double kP) throws Exception{
+    public void setKorting(double kP){
 
-        if(kP < 0){
-            throw new IllegalArgumentException("Korting mag niet negatief zijn");
+        if(kP < 0 || naam == null){
+            kortingsPercentage = 0.0;
+        } else{
+            kortingsPercentage = kP;
         }
 
-        if(naam == null){
-            throw new Exception("Geen huurder gevonden");
-        }
-
-        kortingsPercentage = kP;
     }
 
     public double getKorting(){

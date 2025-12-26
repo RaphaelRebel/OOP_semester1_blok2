@@ -9,10 +9,10 @@ public class AutoHuur {
 
     public void setAantalDagen(int aD) throws IllegalArgumentException{
         if(aD < 0){
-            throw new IllegalArgumentException("Aantal dagen mag niet negatief zijn");
+            aantalDagen = 0;
+        } else{
+            aantalDagen = aD;
         }
-
-        aantalDagen = aD;
     }
 
     public int getAantalDagen(){
@@ -36,7 +36,7 @@ public class AutoHuur {
         return huurder;
     }
 
-    public double totaalPrijs() throws IllegalArgumentException{
+    public double totaalPrijs(){
         if(gehuurdeAuto == null){
             return 0.0;
         } else{
@@ -50,7 +50,7 @@ public class AutoHuur {
             }
 
             if(prijs < 0){
-                throw new IllegalArgumentException("Totale prijs mag niet negatief zijn");
+                prijs = 0.0;
             }
 
             return prijs;
